@@ -8,3 +8,7 @@ console.log("@##$")
 
 ///but you can't print @##$ directly like console.log(@##$)
 
+// window.alert('hey ! this is ayush')
+
+document.getElementById("h1").textContent ='hello'
+document.getElementById("p1").textContent ='i like '
