@@ -29,8 +29,9 @@
 
    <button onclick="
       object.WINS = 0;
-      object.LOSES = 0;
+      object.LOSSES = 0;
       object.TIES = 0;
+      localStorage.removeItem('Score');
       
     ">RESET BUTTON</button>
 
@@ -38,11 +39,21 @@
 
    <script>
 
-      const object = {
+      let object =  JSON.parse(localStorage.getItem('Score')) || {
          WINS:0,
-         LOSES:0,
+         LOSSES:0,
          TIES:0
       };
+
+      /*if (!object){
+         object ={
+            WINS:0,
+            LOSSES:0,
+            TIES:0
+         };
+      } */
+
+     
       
 
       function human(playerMove) {
@@ -52,7 +63,7 @@
          // scissor 
          if (playerMove === 'SCISSORS') {
             if (computerMove === 'Rock') {
-               result = 'YOU LOSES.';
+               result = 'YOU LOSE.';
             } else if (computerMove === 'Paper') {
                result = 'YOU WINS.';
             } else if (computerMove === 'Scissors') {
@@ -67,7 +78,7 @@
             } else if (computerMove === 'Paper') {
                result = 'TIES.';
             } else if (computerMove === 'Scissors') {
-               result = 'YOU LOSES.';
+               result = 'YOU LOSE.';
             }
 
 
@@ -78,7 +89,7 @@
             if (computerMove === 'Rock') {
                result = 'TIES.';
             } else if (computerMove === 'Paper') {
-               result = 'YOU LOSES.';
+               result = 'YOU LOSE.';
             } else if (computerMove === 'Scissors') {
                result = 'YOU WINS.';
             }
@@ -88,16 +99,20 @@
 
          if(result === 'YOU WINS.'){
             object.WINS += 1;
-         }else if(result === 'YOU LOSES.'){
-            object.LOSES += 1;
+         }else if(result === 'YOU LOSE.'){
+            object.LOSSES += 1;
          }else if(result === 'TIES.'){
 
             object.TIES += 1;
          }
 
+         // localStorage
+         localStorage.setItem('Score', JSON.stringify(object));
+
+
 
          alert(`You picked ${playerMove}.Computer picked ${computerMove}.You ${result}
-score WINS:-${object.WINS} LOSES:-${object.LOSES} TIES:-${object.TIES} `);
+score WINS:-${object.WINS} LOSSES:-${object.LOSSES} TIES:-${object.TIES} `);
       }
 
 
